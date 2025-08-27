@@ -1,9 +1,119 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Test</title>
-  </head>
-  <body>
-    Hello World
-  </body>
+
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>앱 랜딩 페이지</title>
+
+<style>
+
+  body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #f8f8f8; }
+
+  h1 { font-size: 24px; margin-bottom: 20px; }
+
+  p { font-size: 16px; margin-bottom: 30px; }
+
+  .btn { display: inline-block; padding: 14px 28px; font-size: 16px; color: #fff; background-color: #007aff; border-radius: 8px; text-decoration: none; }
+
+  .hidden { display: none; }
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<h1>앱으로 이동</h1>
+
+<p>앱이 열리지 않으면, Safari에서 열어주세요.</p>
+
+
+
+<a id="safariBtn" class="btn hidden" href="#" target="_blank">Safari에서 열기</a>
+
+
+
+<script>
+
+  // 인스타그램 인앱브라우저 감지
+
+  function isInstagramInApp() {
+
+    return navigator.userAgent.includes("Instagram");
+
+  }
+
+
+
+  // 앱 열기 함수
+
+  function openApp() {
+
+    const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    const isAndroid = /Android/i.test(navigator.userAgent);
+
+
+
+    if (isiOS) {
+
+      window.location = "myapp://open"; // iOS 커스텀 스킴
+
+    } else if (isAndroid) {
+
+      window.location = "intent://open#Intent;scheme=myapp;package=com.example.myapp;end"; // Android intent
+
+    }
+
+
+
+    // 앱이 안 열리면 4초 후 스토어 이동
+
+    setTimeout(() => {
+
+      if (isiOS) {
+
+        window.location = "https://apps.apple.com/app/idYOUR_APP_ID";
+
+      } else if (isAndroid) {
+
+        window.location = "https://play.google.com/store/apps/details?id=com.example.myapp";
+
+      }
+
+    }, 4000);
+
+  }
+
+
+
+  if (isInstagramInApp()) {
+
+    // 인스타 브라우저면 Safari 안내 버튼 표시
+
+    const btn = document.getElementById("safariBtn");
+
+    btn.classList.remove("hidden");
+
+    btn.href = window.location.href; // Safari에서 열기
+
+  } else {
+
+    // 일반 브라우저면 바로 앱 열기
+
+    openApp();
+
+  }
+
+</script>
+
+
+
+</body>
+
 </html>
