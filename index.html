@@ -100,8 +100,10 @@
 
     btn.classList.remove("hidden");
 
-    btn.href = window.location.href; // Safari에서 열기
-
+    btn.href = "https://gyanios.github.io/web2Cardapp/"; // Safari에서 열기
+    btn.addEventListener("click", () => {
+      window.open(btn.href, "_blank");
+    });
   } else {
 
     // 일반 브라우저면 바로 앱 열기
